@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acc-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acc-frontend
+  template:
+    metadata:
+      labels:
+        app: acc-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: yashwanthrv/accreteconcierge-frontend:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acc-frontend-service
+spec:
+  selector:
+    app: acc-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer

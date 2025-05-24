@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acc-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acc-backend
+  template:
+    metadata:
+      labels:
+        app: acc-backend
+    spec:
+      containers:
+        - name: backend
+          image: yashwanthrv/accreteconcierge-backend:latest
+          ports:
+            - containerPort: 3001
+          resources:
+            requests:
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acc-backend-service
+spec:
+  selector:
+    app: acc-backend
+  ports:
+    - port: 3001
+      targetPort: 3001
+  type: ClusterIP
