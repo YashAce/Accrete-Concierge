@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: yashwanthrv/accreteconcierge-frontend:latest
+          image: yashwanthrv/accreteconcierge-frontend:__TAG__
           ports:
             - containerPort: 80
           resources:
