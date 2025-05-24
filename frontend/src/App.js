@@ -21,7 +21,8 @@ const App = () => {
       }
     ]);
     try {
-      const response = await fetch('http://acc-backend-service:3001/ping', {
+      const backendUrl = process.env.REACT_APP_API_URL;
+      const response = await fetch(`${backendUrl}/ping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, message })

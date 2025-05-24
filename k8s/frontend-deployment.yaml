@@ -1,37 +1,17 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: acc-frontend
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: acc-frontend
-  template:
-    metadata:
-      labels:
-        app: acc-frontend
-    spec:
-      containers:
-        - name: frontend
-          image: yashwanthrv/accreteconcierge-frontend:__TAG__  
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              memory: "64Mi"
-            limits:
-              memory: "128Mi"
-          imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: acc-frontend-service
-spec:
-  selector:
-    app: acc-frontend
-  ports:
-    - port: 80
-      targetPort: 80
-  type: LoadBalancer
+FROM node:18 AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
+RUN npm run build
+
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
