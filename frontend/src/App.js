@@ -21,9 +21,7 @@ const App = () => {
       }
     ]);
     try {
-      const backendUrl = process.env.REACT_APP_API_URL;
-      console.log("here", backendUrl)
-      const response = await fetch('http://35.202.173.195:3001/ping', {
+      const response = await fetch('http://104.198.75.123:3001/ping', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, message })
