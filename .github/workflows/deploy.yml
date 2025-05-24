@@ -38,7 +38,7 @@ jobs:
           context: ./frontend
           push: true
           tags: yashwanthrv/accreteconcierge-frontend:${{ env.IMAGE_TAG }}
-          build-args: REACT_APP_API_URL=http://35.203.55.100:3001
+          build-args: REACT_APP_API_URL=http://35.202.173.195:3001
 
       - name: 🔐 Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
