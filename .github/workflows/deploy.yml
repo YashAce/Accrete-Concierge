@@ -54,5 +54,12 @@ jobs:
       - name: 🚀 Deploy to GKE
         run: |
           kubectl apply -f k8s/backend-deployment.yaml
+
+          echo "Injecting tag: ${{ env.IMAGE_TAG }}"
           sed "s|__TAG__|${{ env.IMAGE_TAG }}|g" k8s/frontend-deployment.yaml > k8s/tmp-frontend.yaml
+
+          echo "========= Rendered frontend YAML ========="
+          cat k8s/tmp-frontend.yaml
+          echo "=========================================="
+
           kubectl apply -f k8s/tmp-frontend.yaml
