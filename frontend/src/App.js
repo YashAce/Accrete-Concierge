@@ -23,7 +23,7 @@ const App = () => {
     try {
       const backendUrl = process.env.REACT_APP_API_URL;
       console.log("here", backendUrl)
-      const response = await fetch(`/ping`, {
+      const response = await fetch(`:3001/ping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, message })
