@@ -21,7 +21,7 @@ const App = () => {
       }
     ]);
     try {
-      const response = await fetch('http://localhost:3001/ping', {
+      const response = await fetch('http://acc-backend-service:3001/ping', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, message })
